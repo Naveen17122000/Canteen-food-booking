@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Order Summary</title>
+    <link rel="stylesheet" href="{% static 'css/order.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div id="user-order-section">
+            <h1>Order Summary</h1>
+            <ul>
+                {% for item in order.items.all %}
+                <li>{{ item.name }} - ${{ item.price }}</li>
+                {% endfor %}
+            </ul>
+            <p>Total Price: ${{ total_price }}</p>
+            <button onclick="location.href='{% url 'CanteenApp:orderurl' %}'" class="btn">Edit Order</button>
+            <button onclick="location.href='{% url 'CanteenApp:homeurl' %}'" class="btn">Home</button>
+        </div>
+    </div>
+</body>
+
+</html>

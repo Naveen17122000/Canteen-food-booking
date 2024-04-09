@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Order</title>
+    <link rel="stylesheet" href="{% static 'css/order.css' %}">
+</head>
+
+<body>
+    <div id="user-order-section" class="container">
+        <div class="button-container">
+            <button onclick="location.href='{% url 'CanteenApp:homeurl' %}'" class="btn">Home</button>
+            <h2>User Order</h2>
+            <form id="order-form" method="post" action="{% url 'CanteenApp:orderurl' %}">
+                {% csrf_token %}
+                <label for="username">Name:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" name="phone">
+                <div id="item-buttons" class="button-container">
+                    {% for item in items %}
+                    <input type="checkbox" class="item-checkbox" name="item_id" value="{{ item.id }}">
+                    <label for="item{{ item.id }}">{{ item.name }} - ${{ item.price }}</label><br>
+                    {% endfor %}
+                </div>
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" min="1" value="1">
+                <div id="selected-items">
+                    <h3>Selected Items</h3>
+                    <ul id="items-list"></ul>
+                </div>
+                <button type="submit" class="button-container">Submit Order</button>
+                <button id="add-item-btn">Add Item</button>
+
+            </form>
+        </div>
+    </div>
+    <script src="{% static 'js/order.js' %}"></script>
+</body>
+
+</html>
